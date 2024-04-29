@@ -23,7 +23,6 @@ export default function AppFunctional(props) {
   function getXY(idx) {
      x = (idx % 3) + 1
      y = (Math.floor(idx / 3) + 1)
-     console.log(x, y)
     // It's enough to know what index the "B" is at, to be able to calculate the coordinates.
   }
 
@@ -48,35 +47,35 @@ export default function AppFunctional(props) {
   function getNextIndex(direction) {
 
     if (direction === 'left') {
-      if (index - 1 > -1) {
+      if ((index - 1 > -1) && (index - 1 !== 2) && (index - 1 !== 5)) {
         setSteps(steps + 1)
         setIndex(index - 1)
+        getXY(index - 1)
       }
-      getXY(index - 1)
     }
 
     if (direction === 'right') {
-      if (index + 1 < 9) {
+      if ((index + 1 < 9) && (index + 1 !== 3) && (index + 1 !== 6)) {
         setSteps(steps + 1)
         setIndex(index + 1)
+        getXY(index + 1)
       }
-      getXY(index + 1)
     }
 
     if (direction === 'up') {
       if (index - 3 > -1) {
         setIndex(index - 3)
         setSteps(steps + 1)
+        getXY(index - 3)
       }
-      getXY(index - 3)
     }
-    
+
     if (direction === 'down') {
       if (index + 3 < 9) {
         setIndex(index + 3)
         setSteps(steps + 1)
+        getXY(index + 3)
       }
-      getXY(index + 3)
     }
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
