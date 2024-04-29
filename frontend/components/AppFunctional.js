@@ -26,13 +26,12 @@ export default function AppFunctional(props) {
     // It's enough to know what index the "B" is at, to be able to calculate the coordinates.
   }
 
-  function getXYMessage() {
-    let message = `Coordinates: (${x}, ${y})`
-    return message;
-    
-    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-    // returns the fully constructed string.
-  }
+  // function getXYMessage() {
+  //   let message = `(${x}, ${y})`
+  //   return message;
+  //    You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
+  //    returns the fully constructed string.
+  // }
 
 
   function reset() {
@@ -101,7 +100,6 @@ export default function AppFunctional(props) {
   function move(evt) {
     let direct = evt.target.id
     getNextIndex(direct)
-    
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
@@ -124,7 +122,7 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">{getXYMessage()}</h3>
+        <h3 id="coordinates">Coordinates: {x}, {y}</h3>
         <h3 id="steps">You moved {steps} times</h3>
       </div>
       <div id="grid">
