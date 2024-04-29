@@ -8,26 +8,28 @@ const initialEmail = ''
 const initialSteps = 0
 const initialIndex = 4
 
+let x = 2
+let y = 2
 export default function AppFunctional(props) {
   const [message, setMessage] = useState(initialMessage)
   const [email, setEmail] = useState(initialEmail)
   const [steps, setSteps] = useState(initialSteps)
   const [index, setIndex] = useState(initialIndex)
-
+  
   let gridArr = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
-
   function getXY(idx) {
-    let x = (idx % 3) + 1
-    let y = (Math.floor(idx / 3) + 1)
-    getXYMessage(x, y)
-    console.log(x, y)
+     x = (idx % 3) + 1
+     y = (Math.floor(idx / 3) + 1)
+     console.log(x, y)
     // It's enough to know what index the "B" is at, to be able to calculate the coordinates.
   }
 
-  function getXYMessage(x, y) {
+  function getXYMessage() {
     let message = `Coordinates: (${x}, ${y})`
+    console.log(message)
     return message;
+    
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
   }
@@ -89,7 +91,7 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     evt.preventDefault()
-
+    
     setEmail(initialEmail)
     // Use a POST request to send a payload to the server.
   }
