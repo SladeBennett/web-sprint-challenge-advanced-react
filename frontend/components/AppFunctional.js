@@ -10,6 +10,8 @@ const initialIndex = 4
 
 let x = 2
 let y = 2
+let url = 'http://localhost:9000/api/result'
+
 export default function AppFunctional(props) {
   const [message, setMessage] = useState(initialMessage)
   const [email, setEmail] = useState(initialEmail)
@@ -27,7 +29,6 @@ export default function AppFunctional(props) {
 
   function getXYMessage() {
     let message = `Coordinates: (${x}, ${y})`
-    console.log(message)
     return message;
     
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
@@ -40,6 +41,8 @@ export default function AppFunctional(props) {
     setEmail(initialEmail)
     setSteps(initialSteps)
     setIndex(initialIndex)
+    x = 2
+    y = 2
   }
 
   function getNextIndex(direction) {
@@ -51,6 +54,7 @@ export default function AppFunctional(props) {
       }
       getXY(index - 1)
     }
+
     if (direction === 'right') {
       if (index + 1 < 9) {
         setSteps(steps + 1)
@@ -58,6 +62,7 @@ export default function AppFunctional(props) {
       }
       getXY(index + 1)
     }
+
     if (direction === 'up') {
       if (index - 3 > -1) {
         setIndex(index - 3)
@@ -65,6 +70,7 @@ export default function AppFunctional(props) {
       }
       getXY(index - 3)
     }
+    
     if (direction === 'down') {
       if (index + 3 < 9) {
         setIndex(index + 3)
@@ -80,6 +86,7 @@ export default function AppFunctional(props) {
   function move(evt) {
     let direct = evt.target.id
     getNextIndex(direct)
+    setMessage('')
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
@@ -91,7 +98,10 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     evt.preventDefault()
-    
+    axios
+      .post(url, {'x': x, 'y': y, 'steps': steps, 'email': email})
+      .then(res => setMessage(res.data.message))
+      .catch(err => setMessage('Ouch: email must be a valid email'))
     setEmail(initialEmail)
     // Use a POST request to send a payload to the server.
   }
@@ -112,7 +122,7 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={move}>LEFT</button>
