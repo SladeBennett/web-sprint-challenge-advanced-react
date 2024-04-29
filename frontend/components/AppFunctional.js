@@ -26,12 +26,12 @@ export default function AppFunctional(props) {
     // It's enough to know what index the "B" is at, to be able to calculate the coordinates.
   }
 
-  // function getXYMessage() {
-  //   let message = `(${x}, ${y})`
-  //   return message;
-  //    You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-  //    returns the fully constructed string.
-  // }
+  function getXYMessage() {
+    let message = ` (${x}, ${y})`
+    return message;
+    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
+    // returns the fully constructed string.
+  }
 
 
   function reset() {
@@ -114,7 +114,17 @@ export default function AppFunctional(props) {
     axios
       .post(url, {'x': x, 'y': y, 'steps': steps, 'email': email})
       .then(res => setMessage(res.data.message))
-      .catch(err => setMessage('Ouch: email must be a valid email'))
+      .catch(err => { 
+        setMessage('Ouch: email must be a valid email')
+        if (email === '') {
+        setMessage('Ouch: email is required')
+        }
+        if (email === "foo@bar.baz") {
+          setMessage(err.response.data.message)
+        }
+        
+      }
+      )
     setEmail(initialEmail)
     // Use a POST request to send a payload to the server.
   }
@@ -122,8 +132,8 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates: {x}, {y}</h3>
-        <h3 id="steps">You moved {steps} times</h3>
+        <h3 id="coordinates">Coordinates: {getXYMessage()}</h3>
+        <h3 id="steps">You moved {steps} {steps === 1 ? 'time' : 'times'}</h3>
       </div>
       <div id="grid">
         {
