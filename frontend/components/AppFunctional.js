@@ -47,34 +47,50 @@ export default function AppFunctional(props) {
   function getNextIndex(direction) {
 
     if (direction === 'left') {
+      setMessage('')
       if ((index - 1 > -1) && (index - 1 !== 2) && (index - 1 !== 5)) {
         setSteps(steps + 1)
         setIndex(index - 1)
         getXY(index - 1)
       }
+      if ((index - 1 < 0) || (index - 1 === 2) || (index - 1 === 5)) {
+        setMessage(`You can't go ${direction}`)
+      }
     }
 
     if (direction === 'right') {
+      setMessage('')
       if ((index + 1 < 9) && (index + 1 !== 3) && (index + 1 !== 6)) {
         setSteps(steps + 1)
         setIndex(index + 1)
         getXY(index + 1)
       }
+      if ((index + 1 > 8) || (index + 1 === 3) || (index + 1 === 6)) {
+        setMessage(`You can't go ${direction}`)
+      }
     }
 
     if (direction === 'up') {
+      setMessage('')
       if (index - 3 > -1) {
         setIndex(index - 3)
         setSteps(steps + 1)
         getXY(index - 3)
       }
+      if (index - 3 < 0) {
+        setMessage(`You can't go ${direction}`)
+      }
     }
 
     if (direction === 'down') {
+      setMessage('')
       if (index + 3 < 9) {
         setIndex(index + 3)
         setSteps(steps + 1)
         getXY(index + 3)
+      }
+      if (index + 3 > 8) {
+        setMessage(`You can't go ${direction}`)
       }
     }
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
@@ -85,7 +101,7 @@ export default function AppFunctional(props) {
   function move(evt) {
     let direct = evt.target.id
     getNextIndex(direct)
-    setMessage('')
+    
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
