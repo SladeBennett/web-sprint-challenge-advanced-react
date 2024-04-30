@@ -8,8 +8,7 @@ const initialEmail = ''
 const initialSteps = 0
 const initialIndex = 4
 
-let x = 2
-let y = 2
+
 let url = 'http://localhost:9000/api/result'
 
 export default function AppFunctional(props) {
@@ -17,32 +16,34 @@ export default function AppFunctional(props) {
   const [email, setEmail] = useState(initialEmail)
   const [steps, setSteps] = useState(initialSteps)
   const [index, setIndex] = useState(initialIndex)
+  const [x, setX] = useState(2)
+  const [y, setY] = useState(2)
   
   let gridArr = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
-  function getXY(idx) {
-     x = (idx % 3) + 1
-     y = (Math.floor(idx / 3) + 1)
-    // It's enough to know what index the "B" is at, to be able to calculate the coordinates.
-  }
-
   function getXYMessage() {
-    let message = ` (${x}, ${y})`
-    return message;
+    let theCords = `(${x}, ${y})`
+    return theCords;
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
   }
 
+  function getXY(idx) {
+     setX((idx % 3) + 1)
+     setY((Math.floor(idx / 3) + 1))
+     // It's enough to know what index the "B" is at, to be able to calculate the coordinates.
+    }
+    
 
   function reset() {
     setMessage(initialMessage)
     setEmail(initialEmail)
     setSteps(initialSteps)
     setIndex(initialIndex)
-    x = 2
-    y = 2
+    setX(2)
+    setY(2)
   }
-
+  
   function getNextIndex(direction) {
 
     if (direction === 'left') {
@@ -96,14 +97,14 @@ export default function AppFunctional(props) {
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.
   }
-
+  
   function move(evt) {
     let direct = evt.target.id
     getNextIndex(direct)
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
-
+  
   function onChange(evt) {
     const { value } = evt.target;
     setEmail(value)
@@ -128,11 +129,11 @@ export default function AppFunctional(props) {
     setEmail(initialEmail)
     // Use a POST request to send a payload to the server.
   }
-
+  
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates: {getXYMessage()}</h3>
+        <h3 id="coordinates">Coordinates {getXYMessage()}</h3>
         <h3 id="steps">You moved {steps} {steps === 1 ? 'time' : 'times'}</h3>
       </div>
       <div id="grid">
