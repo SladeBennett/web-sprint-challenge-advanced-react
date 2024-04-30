@@ -1,4 +1,6 @@
 import AppFunctional from "./AppFunctional"
+import React from "react"
+import { render } from "@testing-library/react"
 // Write your tests here
 let up = document.querySelector('#up')
 let down = document.querySelector('#down')
@@ -9,7 +11,9 @@ let submit = document.querySelector('#submit')
 
 
 describe('[A] Text elements render on the screen', () => {
-
+  beforeEach(() => {
+    render(<AppFunctional />)
+  })
   test('[A1] Up button renders', () => {
     expect(up).toBeVisible
   })
