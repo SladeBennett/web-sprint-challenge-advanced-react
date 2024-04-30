@@ -8,7 +8,6 @@ const initialEmail = ''
 const initialSteps = 0
 const initialIndex = 4
 
-
 let url = 'http://localhost:9000/api/result'
 
 export default function AppFunctional(props) {

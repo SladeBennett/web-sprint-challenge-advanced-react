@@ -69,7 +69,7 @@ Study its functionality and also inspect the Console, the Network tab and the El
 
 - Using `codegrade_mvp.test.js` as inspiration, write 5 tests inside `frontend/components/App.test.js`:
   $- From inside the test file, import `AppFunctional.js`.
-  - Test that the visible texts in headings, buttons, links... render on the screen.
+  - Test that the visible texts in headings, $buttons, $links... render on the screen.
   - Test that typing on the input results in its value changing to the entered text.
 
 ### Regarding Grids and Other Notes
